@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { UserModule } from './user/user.module.js';
+import { SociosModule } from './socios/socios.module.js';
 import { SesionesEntrenamientoModule } from './sesiones-entrenamiento/sesiones-entrenamiento.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { MembresiaModule } from './membresia/membresia.module.js';
@@ -17,6 +19,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: 'YOUR_APP_SECRET',
       serviceId: 'gym-titan-nest-js',
     }),
+    UserModule,
+    SociosModule,
     SesionesEntrenamientoModule,
     PrismaModule,
     MembresiaModule,
