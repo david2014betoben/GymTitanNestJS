@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module.js';
 import { SociosModule } from './socios/socios.module.js';
 import { SesionesEntrenamientoModule } from './sesiones-entrenamiento/sesiones-entrenamiento.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
+import { MembresiaModule } from './membresia/membresia.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -22,6 +23,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SociosModule,
     SesionesEntrenamientoModule,
     PrismaModule,
+    MembresiaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
