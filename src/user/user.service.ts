@@ -66,9 +66,6 @@ export class UserService {
 
   async remove(id: number) {
     try {
-      const user = await this.prisma.usuario.findUnique({
-        where: { id },
-      });
       return await this.prisma.usuario.update({
         where: { id },
         data: { estado: false },
