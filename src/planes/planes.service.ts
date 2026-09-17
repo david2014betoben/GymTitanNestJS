@@ -8,63 +8,42 @@ import { Prisma } from '../generated/prisma/client.js';
 export class PlanesService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createPlanDto: CreatePlanDto) {
-    try {
-      return await this.prisma.plan.create({
-        data: createPlanDto,
-      });
-    } catch (error) {
-      return error;
-    }
+    return await this.prisma.plan.create({
+      data: createPlanDto,
+    });
   }
-
   async findAll() {
-    try {
-      return await this.prisma.plan.findMany({
-        orderBy: { id: 'asc' },
-      });
-    } catch (error) {
-      return error;
-    }
+    return this.prisma.plan.findMany({
+      orderBy: { id: 'asc' },
+    });
   }
 
   async findOne(id: number) {
-    try {
-      const user = await this.prisma.plan.findUnique({
-        where: { id },
-      });
-      if (!user) {
-        throw new NotFoundException(`plan de ID: ${id} no encontrado`);
-      }
-      return user;
-    } catch (error) {
-      return error;
+    const user = await this.prisma.plan.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw new NotFoundException(`plan de ID: ${id} no encontrado`);
     }
+    return user;
   }
 
   async update(id: number, UpdatePlanDto: UpdatePlanDto) {
-    try {
-      return await this.prisma.plan.update({
-        where: { id },
-        data: UpdatePlanDto,
-      });
-    } catch (error) {
-      return error;
-    }
+    return await this.prisma.plan.update({
+      where: { id },
+      data: UpdatePlanDto,
+    });
   }
 
   async remove(id: number) {
-    try {
-      const user = await this.prisma.plan.findUnique({
-        where: { id },
-      });
-      if (!user) {
-        throw new NotFoundException(`plan de ID: ${id} no encontrado`);
-      }
-      return await this.prisma.plan.delete({
-        where: { id },
-      });
-    } catch (error) {
-      return error;
+    const user = await this.prisma.plan.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw new NotFoundException(`plan de ID: ${id} no encontrado`);
     }
+    return await this.prisma.plan.delete({
+      where: { id },
+    });
   }
 }
