@@ -31,7 +31,7 @@ export class SesionesEntrenamientoController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles()
+  @Roles('ADMINISTRACION', 'RECEPCION')
   findAll() {
     return this.sesionesEntrenamientoService.findAll();
   }

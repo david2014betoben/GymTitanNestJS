@@ -8,6 +8,7 @@ import { SesionesEntrenamientoModule } from './sesiones-entrenamiento/sesiones-e
 import { PrismaModule } from './prisma/prisma.module.js';
 import { MembresiaModule } from './membresia/membresia.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { PlanesModule } from './planes/planes.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -26,7 +27,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SesionesEntrenamientoModule,
     PrismaModule,
     MembresiaModule,
-    AuthModule,
+    PlanesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
