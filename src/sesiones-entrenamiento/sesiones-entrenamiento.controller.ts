@@ -15,7 +15,9 @@ import { UpdateSesionesEntrenamientoDto } from './dto/update-sesiones-entrenamie
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
+import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('sesiones-entrenamiento')
 export class SesionesEntrenamientoController {
   constructor(
@@ -80,11 +82,22 @@ export class SesionesEntrenamientoController {
   @Patch(':id/estado')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('ADMINISTRACION', 'ENTRENADOR')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        estado: {
+          type: 'string',
+          enum: ['PROGRAMADA', 'ASISTIO', 'FALTO'],
+        },
+      },
+    },
+  })
   actualizarEstado(
     @Param('id') id: string,
-    @Body('estado') estado: 'PROGRAMADA' | 'ASISTIO' | 'FALTO',
+    @Body() body: { estado: 'PROGRAMADA' | 'ASISTIO' | 'FALTO' },
   ) {
-    return this.sesionesEntrenamientoService.actualizarEstado(+id, estado);
+    return this.sesionesEntrenamientoService.actualizarEstado(+id, body.estado);
   }
 
   // Endpoint para contar sesiones completadas de un entrenador
