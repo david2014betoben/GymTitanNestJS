@@ -5,5 +5,6 @@ import { MembresiaController } from './membresia.controller.js';
 @Module({
   controllers: [MembresiaController],
   providers: [MembresiaService],
+  exports:[MembresiaService]
 })
 export class MembresiaModule {}
