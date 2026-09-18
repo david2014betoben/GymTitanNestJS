@@ -25,7 +25,7 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales Invalidas');
     }
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.rol, name: user.nombre },
+      { id: user.id, email: user.email, rol: user.rol, nombre: user.nombre },
       process.env.JWT_SECRET as string,
       { expiresIn: '8h' },
     );

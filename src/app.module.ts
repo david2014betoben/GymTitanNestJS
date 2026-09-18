@@ -20,6 +20,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: 'YOUR_APP_SECRET',
       serviceId: 'gym-titan-nest-js',
     }),
+    AuthModule,
     UserModule,
     SociosModule,
     SesionesEntrenamientoModule,
