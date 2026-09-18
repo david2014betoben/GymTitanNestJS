@@ -17,12 +17,15 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Credenciales Invalidas');
     }
-    const isMatch = await bcrypt.compare(LoginDto.password, user.password);
+    const isMatch = await bcrypt.compare(
+      LoginDto.passwordHash,
+      user.passwordHash,
+    );
     if (!isMatch) {
       throw new UnauthorizedException('Credenciales Invalidas');
     }
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role, name: user.name },
+      { id: user.id, email: user.email, rol: user.rol, nombre: user.nombre },
       process.env.JWT_SECRET as string,
       { expiresIn: '8h' },
     );
