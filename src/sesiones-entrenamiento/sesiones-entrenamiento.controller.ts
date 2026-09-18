@@ -7,10 +7,14 @@ import {
   Param,
   Body,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { SesionesEntrenamientoService } from './sesiones-entrenamiento.service.js';
 import { CreateSesionesEntrenamientoDto } from './dto/create-sesiones-entrenamiento.dto.js';
 import { UpdateSesionesEntrenamientoDto } from './dto/update-sesiones-entrenamiento.dto.js';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
+import { RolesGuard } from '../auth/guards/roles.guard.js';
+import { Roles } from '../auth/decorators/roles.decorator.js';
 
 @Controller('sesiones-entrenamiento')
 export class SesionesEntrenamientoController {
@@ -19,21 +23,29 @@ export class SesionesEntrenamientoController {
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION', 'RECEPCION')
   create(@Body() createDto: CreateSesionesEntrenamientoDto) {
     return this.sesionesEntrenamientoService.create(createDto);
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles()
   findAll() {
     return this.sesionesEntrenamientoService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION', 'RECEPCION')
   findOne(@Param('id') id: string) {
     return this.sesionesEntrenamientoService.findOne(+id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION')
   update(
     @Param('id') id: string,
     @Body() updateDto: UpdateSesionesEntrenamientoDto,
@@ -42,12 +54,16 @@ export class SesionesEntrenamientoController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION')
   remove(@Param('id') id: string) {
     return this.sesionesEntrenamientoService.remove(+id);
   }
 
   // Endpoint para sesiones del día de un entrenador
   @Get('entrenador/:entrenadorId/sesiones-del-dia')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION', 'ENTRENADOR')
   getSesionesDelDia(
     @Param('entrenadorId') entrenadorId: string,
     @Query('inicio') inicio: string,
@@ -62,6 +78,8 @@ export class SesionesEntrenamientoController {
 
   // Endpoint para actualizar estado de una sesión
   @Patch(':id/estado')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION', 'ENTRENADOR')
   actualizarEstado(
     @Param('id') id: string,
     @Body('estado') estado: 'PROGRAMADA' | 'ASISTIO' | 'FALTO',
@@ -71,6 +89,8 @@ export class SesionesEntrenamientoController {
 
   // Endpoint para contar sesiones completadas de un entrenador
   @Get('entrenador/:entrenadorId/completadas')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMINISTRACION')
   contarSesionesCompletadas(@Param('entrenadorId') entrenadorId: string) {
     return this.sesionesEntrenamientoService.contarSesionesCompletadas(
       +entrenadorId,

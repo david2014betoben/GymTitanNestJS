@@ -16,5 +16,5 @@ export class LoginDto {
   @Matches(/\S/, {
     message: 'La contraseña no puede contener solo espacios',
   })
-  password: string;
+  passwordHash: string;
 }
