@@ -7,6 +7,7 @@ import { SociosModule } from './socios/socios.module.js';
 import { SesionesEntrenamientoModule } from './sesiones-entrenamiento/sesiones-entrenamiento.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { MembresiaModule } from './membresia/membresia.module.js';
+import { AuthModule } from './auth/auth.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -19,6 +20,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: 'YOUR_APP_SECRET',
       serviceId: 'gym-titan-nest-js',
     }),
+    AuthModule,
     UserModule,
     SociosModule,
     SesionesEntrenamientoModule,

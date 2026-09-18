@@ -10,7 +10,13 @@ import {
 import { SociosService } from './socios.service.js';
 import { CreateSociosDto } from './dto/create-socios.dto.js';
 import { UpdateSociosDto } from './dto/update-socios.dto.js';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
+import { RolesGuard } from '../auth/guards/roles.guard.js';
+import { Roles } from '../auth/decorators/roles.decorator.js';
 
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('RECEPCION')
 @Controller('socios')
 export class SociosController {
   constructor(private readonly sociosService: SociosService) {}

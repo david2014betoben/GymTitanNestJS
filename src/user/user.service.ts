@@ -13,44 +13,28 @@ export class UserService {
   async create(createUserDTO: CreateUserDto) {
     const { password, ...rest } = createUserDTO;
 
-    try {
-      return await this.prisma.usuario.create({
-        data: {
-          ...rest,
-          passwordHash: await bcrypt.hash(password, 10),
-        },
-        omit: { passwordHash: true },
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      )
-        throw new ConflictException('Ese email ya está registrado');
-    }
+    return await this.prisma.usuario.create({
+      data: {
+        ...rest,
+        passwordHash: await bcrypt.hash(password, 10),
+      },
+      omit: { passwordHash: true },
+    });
   }
 
   async findAll() {
-    try {
-      return this.prisma.usuario.findMany({
-        orderBy: { id: 'asc' },
-      });
-    } catch (error) {
-      return error;
-    }
+    return this.prisma.usuario.findMany({
+      orderBy: { id: 'asc' },
+    });
   }
   async findOne(id: number) {
-    try {
-      const user = await this.prisma.usuario.findUnique({
-        where: { id },
-      });
-      if (!user) {
-        throw new ConflictException(`usuario de ID: ${id} no encontrado`);
-      }
-      return user;
-    } catch (error) {
-      return error;
+    const user = await this.prisma.usuario.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw new ConflictException(`usuario de ID: ${id} no encontrado`);
     }
+    return user;
   }
 
   async findByEmail(email: string) {
@@ -69,30 +53,17 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    try {
-      return await this.prisma.usuario.update({
-        where: { id },
-        data: updateUserDto,
-      });
-    } catch (error) {
-      return error;
-    }
+    return await this.prisma.usuario.update({
+      where: { id },
+      data: updateUserDto,
+    });
   }
 
   async remove(id: number) {
-    try {
-      return await this.prisma.usuario.update({
-        where: { id },
-        data: { estado: false },
-        omit: { passwordHash: true },
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      )
-        throw new ConflictException(`Usuario de ID ${id} no encontrado`);
-    }
-    throw error;
+    return await this.prisma.usuario.update({
+      where: { id },
+      data: { estado: false },
+      omit: { passwordHash: true },
+    });
   }
 }
