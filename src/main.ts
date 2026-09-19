@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('GymTitan API')
-    .setDescription('API de gestión de socios, usuarios y entrenadores')
+    .setDescription('API de gestión de socios, usuarios y entrenadores.')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
