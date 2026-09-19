@@ -11,8 +11,10 @@ import {
 import { SesionesEntrenamientoService } from './sesiones-entrenamiento.service.js';
 import { CreateSesionesEntrenamientoDto } from './dto/create-sesiones-entrenamiento.dto.js';
 import { UpdateSesionesEntrenamientoDto } from './dto/update-sesiones-entrenamiento.dto.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('sesiones-entrenamiento')
+@ApiBearerAuth()
 export class SesionesEntrenamientoController {
   constructor(
     private readonly sesionesEntrenamientoService: SesionesEntrenamientoService,

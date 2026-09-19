@@ -14,10 +14,12 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('RECEPCION')
 @Controller('socios')
+@ApiBearerAuth()
 export class SociosController {
   constructor(private readonly sociosService: SociosService) {}
 

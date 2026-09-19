@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { MembresiaService } from './membresia.service.js';
 import { CreateMembresiaDto } from './dto/create-membresia.dto.js';
 import { UpdateMembresiaDto } from './dto/update-membresia.dto.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('membresia')
+@ApiBearerAuth()
 export class MembresiaController {
   constructor(private readonly membresiaService: MembresiaService) {}
 
@@ -23,7 +33,10 @@ export class MembresiaController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMembresiaDto: UpdateMembresiaDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateMembresiaDto: UpdateMembresiaDto,
+  ) {
     return this.membresiaService.update(+id, updateMembresiaDto);
   }
 

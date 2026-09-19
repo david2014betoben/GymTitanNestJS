@@ -1,9 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PlanesService } from './planes.service.js';
 import { CreatePlanDto } from './dto/create-plane.dto.js';
 import { UpdatePlanDto } from './dto/update-plane.dto.js';
-
+import { ApiBearerAuth } from '@nestjs/swagger';
 @Controller('planes')
+@ApiBearerAuth()
 export class PlanesController {
   constructor(private readonly planesService: PlanesService) {}
 
