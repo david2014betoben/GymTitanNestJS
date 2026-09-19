@@ -1,4 +1,4 @@
-import { IsInt, IsDateString, Min } from 'class-validator';
+import { IsInt, IsDateString, Min, MinDate } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateSesionesEntrenamientoDto {
@@ -12,7 +12,9 @@ export class CreateSesionesEntrenamientoDto {
   @Type(() => Number)
   entrenadorId: number;
 
-  @IsDateString()
-  @Type(() => Date)
-  fechaHora: Date;
+  @IsDateString(
+    {},
+    { message: 'fechaHora debe ser una fecha válida en formato ISO 8601' },
+  )
+  fechaHora: string;
 }

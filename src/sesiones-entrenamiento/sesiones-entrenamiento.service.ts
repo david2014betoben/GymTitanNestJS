@@ -2,6 +2,7 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateSesionesEntrenamientoDto } from './dto/create-sesiones-entrenamiento.dto.js';
@@ -13,6 +14,14 @@ export class SesionesEntrenamientoService {
 
   async create(createDto: CreateSesionesEntrenamientoDto) {
     try {
+      const fechaHora = new Date(createDto.fechaHora);
+
+      if (fechaHora < new Date(Date.now() - 60_000)) {
+        throw new BadRequestException(
+          'fechaHora no puede ser una fecha pasada',
+        );
+      }
+
       const socio = await this.prisma.socio.findUnique({
         where: { id: createDto.socioId },
       });

@@ -17,7 +17,7 @@ import { Roles } from '../auth/decorators/roles.decorator.js';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('RECEPCION')
+@Roles('RECEPCION', 'ADMINISTRACION')
 @Controller('socios')
 @ApiBearerAuth()
 export class SociosController {
