@@ -14,8 +14,10 @@ import { UpdatePlanDto } from './dto/update-plane.dto.js';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../auth/guards/roles.guard.js';
 import { Roles } from '../auth/decorators/roles.decorator.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('planes')
+@ApiBearerAuth()
 export class PlanesController {
   constructor(private readonly planesService: PlanesService) {}
 

@@ -19,6 +19,7 @@ import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @Controller('sesiones-entrenamiento')
+@ApiBearerAuth()
 export class SesionesEntrenamientoController {
   constructor(
     private readonly sesionesEntrenamientoService: SesionesEntrenamientoService,
